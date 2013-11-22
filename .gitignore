@@ -2,6 +2,6 @@
 *.pot
 *.pyc
 local_settings.py
-djnago/
-djangoengine/
-djangotoolbox/
+django
+djangoappengine
+djangotoolbox
