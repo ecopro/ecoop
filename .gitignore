@@ -5,3 +5,5 @@ local_settings.py
 django
 djangoappengine
 djangotoolbox
+autoload
+dbindexer
