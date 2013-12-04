@@ -1,0 +1,9 @@
+{% if productes %}
+    <ul>
+    {% for every in productes %}
+        <li>{{every}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    No hi ha comandes encara.
+{% endif %}
