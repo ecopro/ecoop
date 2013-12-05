@@ -3,17 +3,22 @@
 
 {% block content %}
 
-{% if productes %}
-    <ul>
+
+
+
+{% if clients %}
+<form action="#" method="POST">
+<select name="clients" form="form1">
     {% for client in clients %}
-        <li>{{client}}</li>
+    	<option value={{client.ref_client}}>{{client.nom_client}}</option>
     {% endfor %}
-    </ul>
+</select> 
+
+<input type="submit" value="Enviar">
+</form>
 {% else %}
     No hi han clients encara.
 {% endif %}
-
-
 
 
 {% endblock %}
