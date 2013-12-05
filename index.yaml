@@ -27,7 +27,22 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: app1_comanda
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: app1_detallcomanda
+  properties:
+  - name: __key__
+    direction: desc
+
 - kind: app1_model1
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: app1_producte
   properties:
   - name: __key__
     direction: desc

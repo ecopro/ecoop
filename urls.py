@@ -23,7 +23,6 @@ urlpatterns = patterns('',
     url(r'^thanks/$', thanks),
     url(r'^comanda/$', comanda),
     url(r'^productes/$', producte),
-
-
+    url(r'^detall_comanda/$', detall_comanda),
 )
 

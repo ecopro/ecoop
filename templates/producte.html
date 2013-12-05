@@ -1,9 +1,9 @@
 {% if productes %}
     <ul>
     {% for every in productes %}
-        <li>{{every}}</li>
+        <li>{{every.nom_prod}} {{every.quantitat_prod}} kg de {{every.proveidor_prod}} a {{every.preu_prod}}€/kg</li>
     {% endfor %}
     </ul>
 {% else %}
-    No hi ha comandes encara.
+    No hi han productes encara.
 {% endif %}

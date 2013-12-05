@@ -1,7 +1,7 @@
 {% if comandes %}
     <ul>
     {% for comanda in comandes %}
-        <li>{{comanda}}</li>
+        <li>Comanda nr. {{comanda.ref_comanda}} amb data de recollida {{comanda.data_recollida_comanda}} per en {{comanda.client}}</li>
     {% endfor %}
     </ul>
 {% else %}

@@ -1,0 +1,9 @@
+{% if detalls %}
+    <ul>
+    {% for info in detalls %}
+        <li>{{info}},demana {{info.quantitat_demnada}}kg, i s'entrega {{info.quantitat_entregada}}kg de {{info.producte}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    No hi han detalls encara.
+{% endif %}

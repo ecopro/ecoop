@@ -46,3 +46,8 @@ def producte(request):
     productes = Producte.objects.order_by('nom_prod')
     context = {"productes":productes}
     return render(request,'producte.html',context)
+
+def detall_comanda(request):
+    detalls = DetallComanda.objects.order_by('quantitat_demnada')
+    context = {"detalls":detalls}
+    return render(request,'detall_comanda.html',context)
