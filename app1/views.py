@@ -16,7 +16,9 @@ def data_hora(request):
     return HttpResponse(html)
 
 def clients(request):
-    return render_to_response('clients.html')
+    clients = Client.objects.order_by('nom_client')
+    context = {"clients":clients}
+    return render(request,'clients.html',context)
 
 def thanks(request):
     return render_to_response('thanks.html')

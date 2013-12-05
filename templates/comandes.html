@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+
 {% if comandes %}
     <ul>
     {% for comanda in comandes %}
@@ -7,3 +12,8 @@
 {% else %}
     No hi ha comandes encara.
 {% endif %}
+
+
+
+
+{% endblock %}

@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+
 {% if productes %}
     <ul>
     {% for every in productes %}
@@ -7,3 +12,7 @@
 {% else %}
     No hi han productes encara.
 {% endif %}
+
+
+
+{% endblock %}
