@@ -7,4 +7,5 @@ djangoappengine
 djangotoolbox
 autoload
 dbindexer
+.gaedata
 *.*~
