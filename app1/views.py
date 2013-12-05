@@ -46,7 +46,3 @@ def producte(request):
     productes = Producte.objects.order_by('nom_prod')
     context = {"productes":productes}
     return render(request,'producte.html',context)
-<<<<<<< HEAD
-
-=======
->>>>>>> 1a5bd6b87d2ebf7d3ff52177ba1e12893a496167
