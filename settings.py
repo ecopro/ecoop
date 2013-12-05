@@ -52,3 +52,5 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
+
+AUTH_PROFILE_MODULE = 'app1.Client'

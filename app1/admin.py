@@ -1,3 +1,3 @@
 from django.contrib import admin
-from models import Model1
-admin.site.register(Model1)
+from models import *
+admin.site.register([Proveidor, Client, Producte, Comanda, DetallComanda])
