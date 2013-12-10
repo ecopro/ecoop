@@ -24,5 +24,8 @@ urlpatterns = patterns('',
     url(r'^comanda/$', comanda),
     url(r'^productes/$', producte),
     url(r'^detall_comanda/$', detall_comanda),
+    url(r'^search-form/$', search_form),
+    url(r'^search/$', search),
+    url(r'^veureproductesclient/$', veureproductesclient),
 )
 

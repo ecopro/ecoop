@@ -38,6 +38,14 @@ def contact(request):
         'form': form,
     })
 
+def veureproductesclient(request):
+    #if 'clients' in request.POST:
+    selected_packages =request.POST.get("resposta") 
+    #else:
+        #selected_packages = 'You submitted an empty form.'
+    #return HttpResponse(message)
+    return HttpResponse(selected_packages)
+
 
 def comanda(request):
     comandes = Comanda.objects.order_by('data_recollida_comanda')
@@ -53,3 +61,14 @@ def detall_comanda(request):
     detalls = DetallComanda.objects.order_by('quantitat_demnada')
     context = {"detalls":detalls}
     return render(request,'detall_comanda.html',context)
+
+
+def search_form(request):
+    return render(request, 'search_form.html')
+
+def search(request):
+    if 'q' in request.GET:
+        message = 'You searched for: %r' % request.GET['q']
+    else:
+        message = 'You submitted an empty form.'
+    return HttpResponse(message)
