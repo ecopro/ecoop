@@ -38,13 +38,32 @@ def contact(request):
         'form': form,
     })
 
-def veureproductesclient(request):
-    #if 'clients' in request.POST:
-    selected_packages =request.POST.get("resposta") 
-    #else:
-        #selected_packages = 'You submitted an empty form.'
-    #return HttpResponse(message)
-    return HttpResponse(selected_packages)
+
+def prova(request):
+    if request.method == 'POST': # If the form has been submitted...
+        form1 = ClientForm(request.POST) # A form bound to the POST data
+        if form1.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            '''if request.method == 'POST':
+                form2 = RealitzaComanda(request.POST)
+                if form2.is_valid():
+                    return HttpResponseRedirect('/thanks/') # Redirect after POST
+                else:
+                    form2 = RealitzaComanda()
+                return render(request, 'prova.html', {
+                    'form': form2,
+                })'''
+            #a = request.POST.get("valor")
+            y=Comanda.objects.get(ref_comanda='1030')
+            return HttpResponse(y.objects.order_by('client')) # Redirect after POST
+    else:
+        form1 = ClientForm() # An unbound form
+
+    return render(request, 'prova.html', {
+        'form': form1,
+    })
+
 
 
 def comanda(request):

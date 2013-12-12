@@ -10,7 +10,7 @@ handler500 = 'djangotoolbox.errorviews.server_error'
 admin.autodiscover()
 
 # search for dbindexes.py in all INSTALLED_APPS and load them
-dbindexer.autodiscover()
+dbindexer.autodiscover()    
 
 urlpatterns = patterns('',
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
@@ -26,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^detall_comanda/$', detall_comanda),
     url(r'^search-form/$', search_form),
     url(r'^search/$', search),
-    url(r'^veureproductesclient/$', veureproductesclient),
+    url(r'^prova/$', prova),
+
+
 )
 

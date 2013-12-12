@@ -11,7 +11,7 @@
 {% csrf_token %}
 <select name="resposta">
     {% for client in clients %}
-    	<option value={{client.nom_client}}>{{client.nom_client}}</option>
+    	<option value={{client.ref_client}}>{{client.nom_client}}</option>
     {% endfor %}
 </select> 
 
