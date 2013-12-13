@@ -45,18 +45,11 @@ def prova(request):
         if form1.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            '''if request.method == 'POST':
-                form2 = RealitzaComanda(request.POST)
-                if form2.is_valid():
-                    return HttpResponseRedirect('/thanks/') # Redirect after POST
-                else:
-                    form2 = RealitzaComanda()
-                return render(request, 'prova.html', {
-                    'form': form2,
-                })'''
+            # ara haurem de redireccionar cap a un altre web via post li pasem el valor de l'usuari.
             #a = request.POST.get("valor")
-            y=Comanda.objects.get(ref_comanda='1030')
-            return HttpResponse(y.objects.order_by('client')) # Redirect after POST
+            _id = request.POST.get("valor")
+            return HttpResponseRedirect('/fes_comanda?id='+str(_id))
+            #return HttpResponse(y.objects.order_by('client')) # Redirect after POST
     else:
         form1 = ClientForm() # An unbound form
 
@@ -64,7 +57,21 @@ def prova(request):
         'form': form1,
     })
 
+def fes_comanda(request):
+    id = request.GET.get("id")
+    #return HttpResponse(id)
+    if request.method == 'POST': # If the form has been submitted...
+        form = FesComandaForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            return HttpResponseRedirect('/') # Redirect after POST
+    else:
+        form = FesComandaForm() # An unbound form
 
+    return render(request, 'fes_comanda.html', {
+        'form': form,
+    })
 
 def comanda(request):
     comandes = Comanda.objects.order_by('data_recollida_comanda')

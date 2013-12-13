@@ -11,15 +11,6 @@ for c in x:
 
 valor_clients=tuple(valor_clients)
 
-'''valor_comandes=[]
-y=Comanda.objects.get(ref_comanda='1030')
-
-for d in y:
-	valor_comandes.append((d , d))
-
-valor_comandes=tuple(valor_comandes)
-'''
-
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField()
@@ -29,6 +20,7 @@ class ContactForm(forms.Form):
 class ClientForm(forms.Form):
     valor = forms.ChoiceField(choices=valor_clients)
 
-class RealitzaComanda(forms.Form):
-	b = Comanda.objects.order_by('client')
+class FesComandaForm(forms.Form):
+	productes = forms.CharField()
+	data_entrega = forms.DateField() 
 	#valor = forms.ChoiceField(choices=valor_comandes)

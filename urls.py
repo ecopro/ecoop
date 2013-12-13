@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^search-form/$', search_form),
     url(r'^search/$', search),
     url(r'^prova/$', prova),
+    url(r'^fes_comanda/$', fes_comanda),
 
 
 )
