@@ -7,7 +7,7 @@
 
 
 {% if clients %}
-<form action="/veureproductesclient/" method="POST">
+<form action="/fes_comanda/" method="POST">
 {% csrf_token %}
 <select name="resposta">
     {% for client in clients %}
