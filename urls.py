@@ -16,18 +16,20 @@ urlpatterns = patterns('',
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
     ('^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}),
     ('^admin/', include(admin.site.urls)),
-    url(r'^basic/$', basic),
-    url(r'^data/$', data_hora),
-    url(r'^clients/$', clients),
-    url(r'^contact/$', contact),
-    url(r'^thanks/$', thanks),
-    url(r'^comanda/$', comanda),
-    url(r'^productes/$', producte),
-    url(r'^detall_comanda/$', detall_comanda),
-    url(r'^search-form/$', search_form),
-    url(r'^search/$', search),
-    url(r'^prova/$', prova),
-    url(r'^fes_comanda/$', fes_comanda),
+    url(r'^basic/$', basic),                   # - The basic template page
+    url(r'^data/$', data_hora),                # - First test page
+    url(r'^clients/$', clients),               # + Mostra els clients per despres poder fer una comanda
+    url(r'^contact/$', contact),               # Pagina de contacte
+    url(r'^thanks/$', thanks),                 # -Apreciacion page, not important
+    url(r'^comanda/$', comanda),               # 
+    url(r'^productes/$', producte),            # 
+    url(r'^detall_comanda/$', detall_comanda), # 
+    url(r'^search-form/$', search_form),       # - Just a test page form
+    url(r'^search/$', search),                 # - The test page itself
+    url(r'^prova/$', prova),                   # - Another test page
+    url(r'^fes_comanda/$', fes_comanda),       # + Enllasat amb el url clients
+    url(r'^veure_comanda/$', veure_comanda),   # + Pagina destinada per veure les comandes
+
 
 
 )

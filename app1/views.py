@@ -3,6 +3,7 @@ import datetime
 from django.shortcuts import *
 from ayuda import *
 from app1.models import *
+from django.views.decorators.http import require_http_methods
 # Create your views here.
 #return render_to_response('sometemplate.html')
 
@@ -57,6 +58,8 @@ def prova(request):
         'form': form1,
     })
 
+
+@require_http_methods(["POST"])
 def fes_comanda(request):
     id = request.GET.get("id")
     #return HttpResponse(id)
@@ -72,11 +75,18 @@ def fes_comanda(request):
     return render(request, 'fes_comanda.html', {
         'form': form,
     })
+    pass
 
 def comanda(request):
-    comandes = Comanda.objects.order_by('data_recollida_comanda')
-    context = {"comandes":comandes}
-    return render(request,'comandes.html',context)
+    value = request.GET.get("id")
+    #Logs.objects.filter(date=someDate).order_by('name__last_name')
+    #comandes = Comanda.objects.order_by('data_recollida_comanda')
+    #context = {"comandes":comandes}
+    # Client.objects.filter(ref_client='15').order_by('nom_client')
+    #return render(request,'comandes.html',context)
+    # Comanda.objects.filter(client=Client.objects.filter(ref_client='15').order_by('nom_client')).order_by('ref_comanda')
+    # Comanda.objects.filter(client.ref_client='14').order_by('ref_comanda')
+    return HttpResponse(value)
 
 def producte(request):
     productes = Producte.objects.order_by('nom_prod')
@@ -98,3 +108,21 @@ def search(request):
     else:
         message = 'You submitted an empty form.'
     return HttpResponse(message)
+
+
+def veure_comanda(request):
+    if request.method == 'POST': # If the form has been submitted...
+        form = VeureComandaForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            
+            # Process the data in form.cleaned_data
+            # ...
+            #return HttpResponseRedirect('/thanks/') # Redirect after POST
+            _id = request.POST.get("valor")
+            return HttpResponseRedirect('/comanda?id='+str(_id))
+    else:
+        form = VeureComandaForm() # An unbound form
+
+    return render(request, 'veure_comandes.html', {
+        'form': form,
+    })

@@ -54,3 +54,11 @@ class FesComandaForm(forms.Form):
 	quantitat=forms.IntegerField(max_value=12)
 	data_entrega = forms.ChoiceField(choices=dates_entrega())
 	#valor = forms.ChoiceField(choices=valor_comandes)
+class VeureComandaForm(forms.Form):
+	valor_clients=[]
+	x=Client.objects.order_by('ref_client')
+	for c in x:
+		valor_clients.append((c.ref_client , c.nom_client))
+
+	valor_clients=tuple(valor_clients)
+	valor = forms.ChoiceField(choices=valor_clients)
