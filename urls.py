@@ -18,15 +18,15 @@ urlpatterns = patterns('',
     ('^admin/', include(admin.site.urls)),
     url(r'^basic/$', basic),                   # - The basic template page
     url(r'^data/$', data_hora),                # - First test page
-    url(r'^clients/$', clients),               # + Mostra els clients per despres poder fer una comanda
+    url(r'^clients/$', clients),               # + 
     url(r'^contact/$', contact),               # Pagina de contacte
     url(r'^thanks/$', thanks),                 # -Apreciacion page, not important
-    url(r'^comanda/$', comanda),               # 
-    url(r'^productes/$', producte),            # 
-    url(r'^detall_comanda/$', detall_comanda), # 
+    url(r'^comanda/$', comanda),               #  *************** NPI
+    url(r'^productes/$', producte),            #  Mostre tots els productes
+    url(r'^detall_comanda/$', detall_comanda), # - Mostra una comanda predefinida (fet servir com a exemple)
     url(r'^search-form/$', search_form),       # - Just a test page form
     url(r'^search/$', search),                 # - The test page itself
-    url(r'^prova/$', prova),                   # - Another test page
+    url(r'^prova/$', prova),                   # + Mostra els clients per despres poder fer una comanda --> Fes comanda --> 
     url(r'^fes_comanda/$', fes_comanda),       # + Enllasat amb el url clients
     url(r'^veure_comanda/$', veure_comanda),   # + Pagina destinada per veure les comandes
 

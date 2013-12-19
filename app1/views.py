@@ -59,23 +59,30 @@ def prova(request):
     })
 
 
-@require_http_methods(["POST"])
+#@require_http_methods(["POST"])
 def fes_comanda(request):
-    id = request.GET.get("id")
+    client_id = request.GET.get("id")
     #return HttpResponse(id)
     if request.method == 'POST': # If the form has been submitted...
         form = FesComandaForm(request.POST) # A form bound to the POST data
+
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            return HttpResponseRedirect('/') # Redirect after POST
+            client_id=form.cleaned_data['client_id']
+            
+
+            #return HttpResponseRedirect('/') # Redirect after POST
+            return HttpResponse(client_id)
     else:
         form = FesComandaForm() # An unbound form
-
+        #print(id) # element de testing
+    form.fields['client_id'].widget=forms.HiddenInput()
+    form.fields['client_id'].initial=client_id
     return render(request, 'fes_comanda.html', {
         'form': form,
     })
-    pass
+    #pass
 
 def comanda(request):
     value = request.GET.get("id")

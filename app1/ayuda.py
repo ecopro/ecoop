@@ -12,6 +12,8 @@ def divendres_tancat(): #comprova si avui es diendres per saber si encara es pot
 	else:
 		return False
 
+
+
 def dates_entrega():
 	divendres=divendres_tancat()
 	avui = datetime.date.today()
@@ -35,6 +37,8 @@ class ContactForm(forms.Form):
     sender = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
 
+
+
 class ClientForm(forms.Form):
 	valor_clients=[]
 	x=Client.objects.order_by('ref_client')
@@ -44,16 +48,23 @@ class ClientForm(forms.Form):
 	valor_clients=tuple(valor_clients)
 	valor = forms.ChoiceField(choices=valor_clients)
 
+
+
 class FesComandaForm(forms.Form):
 	prod=[]
 	x=Producte.objects.order_by('ref_prod')
 	for c in x:
 		prod.append((c.ref_prod , c.nom_prod))
 	prod=tuple(prod)
+	# -------aqui comenca el formulari-----------
 	productes = forms.ChoiceField(choices=prod)
 	quantitat=forms.IntegerField(max_value=12)
 	data_entrega = forms.ChoiceField(choices=dates_entrega())
-	#valor = forms.ChoiceField(choices=valor_comandes)
+	client_id = forms.IntegerField()
+
+
+
+
 class VeureComandaForm(forms.Form):
 	valor_clients=[]
 	x=Client.objects.order_by('ref_client')
