@@ -85,15 +85,9 @@ def fes_comanda(request):
     #pass
 
 def comanda(request):
-    value = request.GET.get("id")
-    #Logs.objects.filter(date=someDate).order_by('name__last_name')
-    #comandes = Comanda.objects.order_by('data_recollida_comanda')
-    #context = {"comandes":comandes}
-    # Client.objects.filter(ref_client='15').order_by('nom_client')
-    #return render(request,'comandes.html',context)
-    # Comanda.objects.filter(client=Client.objects.filter(ref_client='15').order_by('nom_client')).order_by('ref_comanda')
-    # Comanda.objects.filter(client.ref_client='14').order_by('ref_comanda')
-    return HttpResponse(value)
+    id_client = request.GET.get("id")
+    context = {'comandes':torna_comandes_by_client(id_client)}
+    return render(request,'comandes.html',context)
 
 def producte(request):
     productes = Producte.objects.order_by('nom_prod')
