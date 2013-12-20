@@ -60,7 +60,3 @@ class DetallComanda(models.Model):
 	def __unicode__(self):
 		return "Comanda nr: %s " % self.comanda
 
-
-
-		
-

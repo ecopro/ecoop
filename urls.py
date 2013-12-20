@@ -29,8 +29,5 @@ urlpatterns = patterns('',
     url(r'^prova/$', prova),                   # + Mostra els clients per despres poder fer una comanda --> Fes comanda --> 
     url(r'^fes_comanda/$', fes_comanda),       # + Enllasat amb el url clients
     url(r'^veure_comanda/$', veure_comanda),   # + Pagina destinada per veure les comandes
-
-
-
 )
 

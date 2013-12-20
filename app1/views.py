@@ -69,11 +69,24 @@ def fes_comanda(request):
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
-            client_id=form.cleaned_data['client_id']
+            client_id = form.cleaned_data['client_id']
+            client = Client.objects.filter(ref_client=client_id)
+            id_producte = form.cleaned_data['productes']
+            producte = Producte.objects.filter(ref_prod=id_producte)
+            quantitat = form.cleaned_data['quantitat']
+            data_entrega = form.cleaned_data['data_entrega']
             
 
+            for x in client:
+                nom_client = x.nom_client
+
+            for x in producte:
+                producte = x.nom_prod
+
+            context= {'client':nom_client, 'producte':producte, 'id_producte':id_producte, 'quantitat':quantitat, 'data':data_entrega}
             #return HttpResponseRedirect('/') # Redirect after POST
-            return HttpResponse(client_id)
+            #return HttpResponse(client_id producte quantitat data_entrega)
+            return render(request, 'veure_comandes.html', context)
     else:
         form = FesComandaForm() # An unbound form
         #print(id) # element de testing
@@ -127,3 +140,4 @@ def veure_comanda(request):
     return render(request, 'veure_comandes.html', {
         'form': form,
     })
+

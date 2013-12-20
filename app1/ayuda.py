@@ -74,10 +74,10 @@ def dates_entrega():
 	else:
 		avui = avui + datetime.timedelta(days=-avui.weekday() + 1, weeks=1) # si avui encara no es dv la comanda es pot fer per la proxima setmana
 	dates_entrega = []
-	dates_entrega.append(('1', str(avui)))
-	dates_entrega.append(('2', str(avui+datetime.timedelta(weeks=1))))
-	dates_entrega.append(('3', str(avui+datetime.timedelta(weeks=2))))
-	dates_entrega.append(('4', str(avui+datetime.timedelta(weeks=3))))
+	dates_entrega.append((str(avui), str(avui)))
+	dates_entrega.append((str(avui+datetime.timedelta(weeks=1)), str(avui+datetime.timedelta(weeks=1))))
+	dates_entrega.append((str(avui+datetime.timedelta(weeks=2)), str(avui+datetime.timedelta(weeks=2))))
+	dates_entrega.append((str(avui+datetime.timedelta(weeks=3)), str(avui+datetime.timedelta(weeks=3))))
 	dates_entrega=tuple(dates_entrega)
 	return dates_entrega
 
@@ -98,7 +98,7 @@ def torna_client_by_id(id):
 def torna_comandes_by_client(id_client):
 	llista_comandes=[]
 	client = torna_client_by_id(id_client)
-	comandes = Comanda.objects.filter(client=client).order_by('ref_comanda')
+	comandes = Comanda.objects.filter(client=client)
 	for comanda in comandes:
 		llista_comandes.append((comanda.ref_comanda, comanda.data_recollida_comanda))
 	llista_comandes=tuple(llista_comandes)
