@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from app1.models import *
 import datetime 
-
+import random
 
 
 
@@ -104,3 +104,20 @@ def torna_comandes_by_client(id_client):
 	llista_comandes=tuple(llista_comandes)
 
 	return llista_comandes
+
+
+#dic={client_id : client_id, producte: producte, quantitat:quantitat, data_entrega:data_entrega}
+def grabar_comanda(dic):
+	#client = dic[client]
+	#prod = dic[producte]
+	#quantitat = dic[quantitat]
+	#data_entrega = dic[data_entrega]
+	ref_com=random.randint(0,299)
+	client_inst= Client.objects.filter(ref_client=dic['client'])
+	new_comanda = Comanda(ref_comanda=ref_com, client=client_inst)
+	new_comanda.save()
+
+	new_detall_comanda= DetallComanda(producte=dic[producte], quantitat_demanada=dic[quantitat], comanda=new_comanda)
+	new_detall_comanda.save()
+
+	

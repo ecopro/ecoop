@@ -4,6 +4,10 @@ from django.shortcuts import *
 from ayuda import *
 from app1.models import *
 from django.views.decorators.http import require_http_methods
+from django.contrib import auth
+from django.contrib.auth.views import login, logout
+from django.contrib.sessions.middleware import SessionMiddleware
+
 # Create your views here.
 #return render_to_response('sometemplate.html')
 
@@ -16,10 +20,10 @@ def data_hora(request):
     html = "<html><body>It is now %s.</body></html>" % now
     return HttpResponse(html)
 
-def clients(request):
-    clients = Client.objects.order_by('nom_client')
-    context = {"clients":clients}
-    return render(request,'clients.html',context)
+#def clients(request):
+#    clients = Client.objects.order_by('nom_client')
+#    context = {"clients":clients}
+#    return render(request,'clients.html',context)
 
 def thanks(request):
     return render_to_response('thanks.html')
@@ -41,22 +45,26 @@ def contact(request):
 
 
 def prova(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form1 = ClientForm(request.POST) # A form bound to the POST data
-        if form1.is_valid(): # All validation rules pass
-            # Process the data in form.cleaned_data
-            # ...
-            # ara haurem de redireccionar cap a un altre web via post li pasem el valor de l'usuari.
-            #a = request.POST.get("valor")
-            _id = request.POST.get("valor")
-            return HttpResponseRedirect('/fes_comanda?id='+str(_id))
-            #return HttpResponse(y.objects.order_by('client')) # Redirect after POST
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
     else:
-        form1 = ClientForm() # An unbound form
+        #print request.session.get('nom_usuari_ses')
+        if request.method == 'POST': # If the form has been submitted...
+            form1 = ClientForm(request.POST) # A form bound to the POST data
+            if form1.is_valid(): # All validation rules pass
+                # Process the data in form.cleaned_data
+                # ...
+                # ara haurem de redireccionar cap a un altre web via post li pasem el valor de l'usuari.
+                #a = request.POST.get("valor")
+                _id = request.POST.get("valor")
+                return HttpResponseRedirect('/fes_comanda?id='+str(_id))
+                #return HttpResponse(y.objects.order_by('client')) # Redirect after POST
+        else:
+            form1 = ClientForm() # An unbound form
 
-    return render(request, 'prova.html', {
-        'form': form1,
-    })
+        return render(request, 'prova.html', {
+            'form': form1,
+        })
 
 
 #@require_http_methods(["POST"])
@@ -75,6 +83,7 @@ def fes_comanda(request):
             producte = Producte.objects.filter(ref_prod=id_producte)
             quantitat = form.cleaned_data['quantitat']
             data_entrega = form.cleaned_data['data_entrega']
+            #user_ses  = request.session['usuari']
             
 
             for x in client:
@@ -82,8 +91,10 @@ def fes_comanda(request):
 
             for x in producte:
                 producte = x.nom_prod
+            dic={'client' : client_id, 'producte': producte, 'quantitat':quantitat, 'data_entrega':data_entrega}
+            grabar_comanda(dic)
 
-            context= {'client':nom_client, 'producte':producte, 'id_producte':id_producte, 'quantitat':quantitat, 'data':data_entrega}
+            context= {'client':nom_client, 'producte':producte, 'id_producte':id_producte, 'quantitat':quantitat, 'data':data_entrega }
             #return HttpResponseRedirect('/') # Redirect after POST
             #return HttpResponse(client_id producte quantitat data_entrega)
             return render(request, 'veure_comandes.html', context)
@@ -141,3 +152,21 @@ def veure_comanda(request):
         'form': form,
     })
 
+def login_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        # Correct password, and the user is marked "active"
+        auth.login(request, user)
+        # Redirect to a success page.
+        request.session['nom_usuari_ses'] = 'username'
+        return HttpResponseRedirect("/account/loggedin/")
+    else:
+        # Show an error page
+        return HttpResponseRedirect("/account/invalid/")
+
+def logout_view(request):
+    auth.logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("/account/loggedout/")

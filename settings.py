@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'dbindexer',
     'app1',
     'django.contrib.messages',
+    'django.contrib.sessions',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
@@ -30,7 +31,7 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     # This loads the index definitions, so it has to come first
     'autoload.middleware.AutoloadMiddleware',
-    
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,3 +55,4 @@ TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 ROOT_URLCONF = 'urls'
 
 AUTH_PROFILE_MODULE = 'app1.Client'
+
