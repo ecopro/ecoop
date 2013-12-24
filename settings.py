@@ -56,3 +56,5 @@ ROOT_URLCONF = 'urls'
 
 AUTH_PROFILE_MODULE = 'app1.Client'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False # Linia que estableix si els cookie s'esbori al tancar el navegador.
+SESSION_COOKIE_AGE = 5 * 60 # Linia que estableix el temps de caducitat dels cookies que es en segons , per aixo hi ha 5 minuts * 60 segons

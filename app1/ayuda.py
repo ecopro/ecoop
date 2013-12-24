@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from app1.models import *
+from django.http import HttpResponseRedirect
 import datetime 
 import random
 
@@ -38,9 +39,6 @@ class VeureComandaForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		super(VeureComandaForm, self).__init__(*args, **kwargs)
 		self.fields['valor']=forms.ChoiceField(choices=torna_clients())
-
-
-
 
 
 # ----- Funcions per aleugerir les classes -----

@@ -161,6 +161,7 @@ def login_view(request):
         auth.login(request, user)
         # Redirect to a success page.
         request.session['nom_usuari_ses'] = 'username'
+        request.session['last_activity'] = datetime.now()
         return HttpResponseRedirect("/account/loggedin/")
     else:
         # Show an error page
