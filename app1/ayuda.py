@@ -4,6 +4,7 @@ from app1.models import *
 from django.http import HttpResponseRedirect
 import datetime 
 import random
+import time
 
 
 
@@ -93,29 +94,42 @@ def torna_client_by_id(id):
 	client=Client.objects.filter(ref_client='15')
 	return client
 
-def torna_comandes_by_client(id_client):
+def torna_comandes_by_client():
 	llista_comandes=[]
-	client = torna_client_by_id(id_client)
-	comandes = Comanda.objects.filter(client=client)
+	#client = torna_client_by_id(id_client)
+	client_sel = Client.objects.filter(ref_client='15')
+	comandes = Comanda.objects.filter(client=client_sel[0])
+	#comandes = Comanda.objects.filter(client=client.id)
 	for comanda in comandes:
-		llista_comandes.append((comanda.ref_comanda, comanda.data_recollida_comanda))
-	llista_comandes=tuple(llista_comandes)
+		#if comanda.client.id == client_sel[0].id:
+			llista_comandes.append(comanda)
+	#llista_comandes=tuple(llista_comandes)
 
 	return llista_comandes
 
 
 #dic={client_id : client_id, producte: producte, quantitat:quantitat, data_entrega:data_entrega}
 def grabar_comanda(dic):
-	#client = dic[client]
-	#prod = dic[producte]
-	#quantitat = dic[quantitat]
-	#data_entrega = dic[data_entrega]
+	#client = 15
+	#prod = 15
+	#quantitat = 10
+	#data_entrega = 2014-01-14 
+	data = '10012014'
+	data_creacio_comanda= datetime.datetime.strptime(data, "%d%m%Y").date()
 	ref_com=random.randint(0,299)
 	client_inst= Client.objects.filter(ref_client=dic['client'])
-	new_comanda = Comanda(ref_comanda=ref_com, client=client_inst)
+	new_comanda = Comanda(ref_comanda=ref_com, data_entreaga_comanda=dic['data_entrega'], client=client_inst[0],data_creacio_comanda=data_creacio_comanda,data_recollida_comanda=dic['data_entrega'])
 	new_comanda.save()
+	# per fer comandes s'han d'insertar tots els camps 
+	prod = Producte.objects.filter(ref_prod=dic['id_producte'])
+	quantitat_d = dic['quantitat']
+	quantitat_e = 0
 
-	new_detall_comanda= DetallComanda(producte=dic[producte], quantitat_demanada=dic[quantitat], comanda=new_comanda)
+	new_detall_comanda= DetallComanda(producte=prod[0], quantitat_demnada=quantitat_d, quantitat_entregada=quantitat_e, comanda=new_comanda)
 	new_detall_comanda.save()
+
+	#codi tret des del terminal 
+	#	data = datetime.datetime.strptime('14042014', "%d%m%Y").date()
+	#	new_comanda = Comanda(ref_comanda=ref_com, data_entreaga_comanda=data, client=client_inst[0],data_creacio_comanda=data,data_recollida_comanda=data)
 
 	

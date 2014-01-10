@@ -91,7 +91,7 @@ def fes_comanda(request):
 
             for x in producte:
                 producte = x.nom_prod
-            dic={'client' : client_id, 'producte': producte, 'quantitat':quantitat, 'data_entrega':data_entrega}
+            dic={'client' : client_id, 'id_producte': id_producte, 'quantitat':quantitat, 'data_entrega':data_entrega}
             grabar_comanda(dic)
 
             context= {'client':nom_client, 'producte':producte, 'id_producte':id_producte, 'quantitat':quantitat, 'data':data_entrega }
@@ -110,7 +110,7 @@ def fes_comanda(request):
 
 def comanda(request):
     id_client = request.GET.get("id")
-    context = {'comandes':torna_comandes_by_client(id_client)}
+    context = {'comandes':torna_comandes_by_client()}
     return render(request,'comandes.html',context)
 
 def producte(request):
