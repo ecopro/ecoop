@@ -12,7 +12,7 @@
 <form action="{% url "mysite_login" %}" method="post" accept-charset="utf-8">
     {{ form.as_p }}
     {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}" />
+    <input type="hidden" name="next" value="{{ next }}" /></br>
     <input class="btn" type="submit" value="Login" />
 </form>
 {% endblock %}

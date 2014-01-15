@@ -5,6 +5,8 @@ from djangoappengine.settings_base import *
 
 import os
 
+BASE_DIR = os.path.dirname(os.path.realpath(__file__)) 
+
 # Activate django-dbindexer for the default database
 DATABASES['native'] = DATABASES['default']
 DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
@@ -23,6 +25,7 @@ INSTALLED_APPS = (
     'app1',
     'django.contrib.messages',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
@@ -48,6 +51,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # corresponding output. Helps a lot with print-debugging.
 TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
@@ -58,3 +62,9 @@ AUTH_PROFILE_MODULE = 'app1.Client'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False # Linia que estableix si els cookie s'esbori al tancar el navegador.
 SESSION_COOKIE_AGE = 5 * 60 # Linia que estableix el temps de caducitat dels cookies que es en segons , per aixo hi ha 5 minuts * 60 segons
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    '/home/andrei/Projectes/Django/ecoop/static/',
+)
+

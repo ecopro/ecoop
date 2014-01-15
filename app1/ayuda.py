@@ -41,6 +41,11 @@ class VeureComandaForm(forms.Form):
 		super(VeureComandaForm, self).__init__(*args, **kwargs)
 		self.fields['valor']=forms.ChoiceField(choices=torna_clients())
 
+class ReportForm(forms.Form):
+	data_entrega = forms.ChoiceField()
+	def __init__(self, *args, **kwargs):
+		super(ReportForm, self).__init__(*args, **kwargs)
+		self.fields['data_entrega']=forms.ChoiceField(choices=dates_entrega())
 
 # ----- Funcions per aleugerir les classes -----
 
@@ -132,4 +137,25 @@ def grabar_comanda(dic):
 	#	data = datetime.datetime.strptime('14042014', "%d%m%Y").date()
 	#	new_comanda = Comanda(ref_comanda=ref_com, data_entreaga_comanda=data, client=client_inst[0],data_creacio_comanda=data,data_recollida_comanda=data)
 
-	
+
+def total_productes_report(lista):
+	lista_comandes=lista
+	lista_det=[]
+	dic={}
+	lista_final=[]
+	for x in lista_comandes:
+		lista_det.append(DetallComanda.objects.filter(comanda=x))
+
+	for a in lista_det:
+		if a[0].producte.nom_prod in dic:
+			dic[a[0].producte.nom_prod] += a[0].quantitat_demnada
+		else:
+			dic.update({a[0].producte.nom_prod:a[0].quantitat_demnada})
+
+	for v in dic:
+		lista_final.append(v)
+		lista_final.append(dic[v])
+
+	return lista_final
+
+

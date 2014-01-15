@@ -108,6 +108,36 @@ def fes_comanda(request):
     })
     #pass
 
+def report(request):
+    if request.method == 'POST': # If the form has been submitted...
+        form = ReportForm(request.POST) # A form bound to the POST data
+
+        if form.is_valid(): # All validation rules pass
+            data_entrega = form.cleaned_data['data_entrega']
+            comandes_fetes= Comanda.objects.filter(data_entreaga_comanda=data_entrega)
+            
+            lista_com=[]
+
+            for order in comandes_fetes:
+                lista_com.append(order)
+
+            # aqui hauriem de cridar una funccio per que ens busques tota l'informacio 
+            # de cada comanda i ens ho pasesi en un diccionari agrupat per productes 
+            # que sera la funcio total_productes_report() que podem trobar en ayuda.py
+            
+            context={'lista':total_productes_report(lista_com), 'dia':data_entrega, 'range':len(total_productes_report(lista_com))}
+            return render(request, 'mostra_report.html', context)
+
+
+    else:
+        form = ReportForm() # An unbound form
+
+    return render(request, 'report.html', {
+        'form': form,
+    })
+
+
+
 def comanda(request):
     id_client = request.GET.get("id")
     context = {'comandes':torna_comandes_by_client()}
@@ -171,3 +201,8 @@ def logout_view(request):
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponseRedirect("/account/loggedout/")
+
+
+
+
+

@@ -3,6 +3,8 @@ import dbindexer
 from django.contrib import admin
 from app1.views import *
 from django.conf.urls import patterns, include, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -35,6 +37,7 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$',  login),
     url(r'^accounts/logout/$', logout),
     url(r'^accounts/profile/$', prova),
-)
+    url(r'^report/$', report),
+) 
 
 

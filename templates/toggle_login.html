@@ -10,9 +10,9 @@
 </ul>
 {% else %}
 <form class="navbar-form pull-right" action="{% url "mysite_login" %}" method="post" accept-charset="utf-8">
-    <input class="span2" type="text" placeholder="Username" name="username">
-    <input class="span2" type="password" placeholder="Password" name="password">
+    <input class="span2" type="text" placeholder="Usuari" name="username"> </br>
+    <input class="span2" type="password" placeholder="Contrasenya" name="password">
     {% csrf_token %}
-    <button type="submit" class="btn">Login</button>
+    <button type="submit" class="btn">Entra</button>
 </form>
 {% endif %}
