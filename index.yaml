@@ -37,7 +37,17 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: app1_comissio
+  properties:
+  - name: __key__
+    direction: desc
+
 - kind: app1_detallcomanda
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: app1_event
   properties:
   - name: __key__
     direction: desc

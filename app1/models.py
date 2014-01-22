@@ -10,18 +10,68 @@ class Model1(models.Model):
     choice_text = models.CharField(max_length=4)
     votes = models.IntegerField(default=0)
 
+class IntegerRangeField(models.IntegerField):
+    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults.update(kwargs)
+        return super(IntegerRangeField, self).formfield(**defaults)
+
+class Comissio(models.Model):
+    nom = models.CharField(max_length=254)
+    def __unicode__(self):
+        return "comissio %s"%self.nom
+
 class Client(models.Model):
-	user = models.OneToOneField(User)
-	ref_client = models.IntegerField(default=0)
-	nom_client = models.CharField(max_length=254)
-	def __str__(self):  
-          return "client %s" % self.user
+    TORNS = ( ("ex","Exempt"), ("ca","Caixes"), ("re","Recollida") )
+    user = models.OneToOneField(User)
+    # ref_client -> num_caixa
+    num_caixa = models.IntegerField(default=0)
+    nom_client = models.CharField(max_length=254)
+    torn = models.CharField( max_length=2, choices=TORNS, default="ca" )
+    max_torns = models.PositiveIntegerField(default=4)
+    comissio = models.ForeignKey(Comissio,null=True)
+    def __str__(self):
+          return "Caixa[%s]: %s" % (self.num_caixa,self.user)
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
        profile, created = Client.objects.get_or_create(user=instance)  
 
 post_save.connect(create_user_profile, sender=User)  
+
+
+class Event(models.Model):
+    data = models.DateTimeField()
+    desc = models.CharField(max_length=1024,default="Recollida de comandes")
+    caixa_1 = models.ForeignKey(Client,null=True,blank=True,related_name="caixa1")
+    caixa_2 = models.ForeignKey(Client,null=True,blank=True,related_name="caixa2")
+    caixa_3 = models.ForeignKey(Client,null=True,blank=True,related_name="caixa3")
+    caixa_4 = models.ForeignKey(Client,null=True,blank=True,related_name="caixa4")
+    caixa_5 = models.ForeignKey(Client,null=True,blank=True,related_name="caixa5")
+    recollida_1 = models.ForeignKey(Client,null=True,blank=True,related_name="reco1")
+    recollida_2 = models.ForeignKey(Client,null=True,blank=True,related_name="reco2")
+    recollida_3 = models.ForeignKey(Client,null=True,blank=True,related_name="reco3")
+    recollida_4 = models.ForeignKey(Client,null=True,blank=True,related_name="reco4")
+    recollida_5 = models.ForeignKey(Client,null=True,blank=True,related_name="reco5")
+    
+    def __unicode__(self):
+        return unicode(self.data)+"    "+unicode(self.desc)
+    def caixa(self):
+        torns = []
+        if self.caixa_1:
+            torns.append(self.caixa_1)
+        if self.caixa_2:
+            torns.append(self.caixa_2)
+        if self.caixa_3:
+            torns.append(self.caixa_3)
+        if self.caixa_4:
+            torns.append(self.caixa_4)
+        if self.caixa_5:
+            torns.append(self.caixa_5)
+        return torns
 
 class Proveidor(models.Model):
 	ref_prov = models.IntegerField(default=0)

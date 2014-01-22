@@ -38,6 +38,7 @@ urlpatterns = patterns('',
     url(r'^accounts/logout/$', logout),
     url(r'^accounts/profile/$', prova),
     url(r'^report/$', report),
+    url(r'^torns/$', torns_view),
 ) 
 
 
