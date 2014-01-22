@@ -113,6 +113,7 @@ def report(request):
         form = ReportForm(request.POST) # A form bound to the POST data
 
         if form.is_valid(): # All validation rules pass
+            # test value data_entrega = '2014-21-01'
             data_entrega = form.cleaned_data['data_entrega']
             comandes_fetes= Comanda.objects.filter(data_entreaga_comanda=data_entrega)
             
