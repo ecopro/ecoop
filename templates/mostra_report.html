@@ -6,22 +6,29 @@
 <h1>Report</h1>
 
 </center>
-
-{{ dia }}</br>
-
-{{range}}
-</br>
-
-
-
-
-
-
+Informe  de tots els productes que s'han demanat per el dia {{ dia }}. </br>
 
 </br>
+<!-- 
+</br>
+Aquesta es la llista en 'brut' que ens arriba al html: <br><br>
+{{lista}}
+
+<br><br><br><br><br>
+Pro despres de treballar amb les dades arribem a aquet format:
+<br><br>
+-->
 {%for a in lista %}
-	{{a}} 	
+	{% for key,value in lista.items %}
+		Proveidor: {{key}} <br>
+
+		{% for key,value in value.items %}
+			 - {{key}} : {{value}} kg/u<br>
+		{% endfor %}
+			<br><br>
+	{% endfor%}
 {%endfor%}
+
 
 
 
