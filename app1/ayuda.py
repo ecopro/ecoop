@@ -143,19 +143,41 @@ def total_productes_report(lista):
 	lista_det=[]
 	dic={}
 	lista_final=[]
+	lista_dic=[]
+	resultat={}
+	#ara agafem els objectes detallcomanda
 	for x in lista_comandes:
 		lista_det.append(DetallComanda.objects.filter(comanda=x))
+	#ara lista_det es una llista amb tots els detall de comandes 
 
-	for a in lista_det:
+	#
+	for a in lista_det:	
 		if a[0].producte.nom_prod in dic:
 			dic[a[0].producte.nom_prod] += a[0].quantitat_demnada
 		else:
 			dic.update({a[0].producte.nom_prod:a[0].quantitat_demnada})
 
 	for v in dic:
+		a = Producte.objects.filter(nom_prod=v)
+		# v # retora el nom del producte
+		# dic[v] #retorna la quantitat del producte
+		# a[0].proveidor_prod.nom_prov #retorna el nom del proveidor
+		
+		lista_final.append(a[0].proveidor_prod.nom_prov)
 		lista_final.append(v)
 		lista_final.append(dic[v])
 
-	return lista_final
+	# ara tenim una lista de valors semplant a aixo [u'Mango', 11.0, u'Casa Caritat', u'patata', 2.0, u'Casa Caritat']
+
+	for i in range(0, len(lista_final), 3):
+	    if lista_final[i] in resultat:
+	        resultat[lista_final[i]].update({lista_final[i+1]:lista_final[i+2]})
+	    else:
+	       resultat.update({lista_final[i]:{lista_final[i+1]:lista_final[i+2]}})
+
+	# ara tenim les dades en aquet format  sera molt mes facil treballar
+	return resultat
+
+	#.producte.proveidor_prod tornar el proveidor.
 
 
