@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">{% trans 'Ecoop administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %}
+    <div id="footer">
+    {% if request.session.last_site_url %}
+        <center><a href="{{ request.session.last_site_url }}">torna al front-page</a></center>
+    {% endif %}
+    </div>
+{% endblock %}

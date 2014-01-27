@@ -39,6 +39,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'app1.middleware.LastSiteUrl',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'urls'
 AUTH_PROFILE_MODULE = 'app1.Client'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False # Linia que estableix si els cookie s'esbori al tancar el navegador.
-SESSION_COOKIE_AGE = 5 * 60 # Linia que estableix el temps de caducitat dels cookies que es en segons , per aixo hi ha 5 minuts * 60 segons
+SESSION_COOKIE_AGE = 15 * 60 # Linia que estableix el temps de caducitat dels cookies que es en segons , per aixo hi ha 15 minuts * 60 segons
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),

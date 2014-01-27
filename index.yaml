@@ -52,6 +52,19 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: app1_event
+  properties:
+  - name: data
+  - name: __key__
+    direction: desc
+
+- kind: app1_event
+  properties:
+  - name: data
+    direction: desc
+  - name: __key__
+    direction: desc
+
 - kind: app1_model1
   properties:
   - name: __key__

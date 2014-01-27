@@ -34,7 +34,7 @@ class Client(models.Model):
     max_torns = models.PositiveIntegerField(default=4)
     comissio = models.ForeignKey(Comissio,null=True)
     def __str__(self):
-          return "Caixa[%s]: %s" % (self.num_caixa,self.user)
+          return "[%s]: %s" % (self.num_caixa,self.user)
 
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
@@ -56,6 +56,9 @@ class Event(models.Model):
     recollida_3 = models.ForeignKey(Client,null=True,blank=True,related_name="reco3")
     recollida_4 = models.ForeignKey(Client,null=True,blank=True,related_name="reco4")
     recollida_5 = models.ForeignKey(Client,null=True,blank=True,related_name="reco5")
+    
+    class Meta:
+        ordering = ['-data']
     
     def __unicode__(self):
         return unicode(self.data)+"    "+unicode(self.desc)
