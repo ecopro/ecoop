@@ -104,7 +104,7 @@ def fes_comanda(request):
             # Process the data in form.cleaned_data
             # ...
             client_id = form.cleaned_data['client_id']
-            client = Client.objects.filter(ref_client=client_id)
+            client = Client.objects.filter(id=client_id)
             id_producte = form.cleaned_data['productes']
             producte = Producte.objects.filter(ref_prod=id_producte)
             quantitat = form.cleaned_data['quantitat']
@@ -166,8 +166,12 @@ def report(request):
 
 
 def comanda(request):
-    id_client = request.GET.get("id")
-    context = {'comandes':torna_comandes_by_client()}
+    #id_client = request.GET.get("id")
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/accounts/login/?next=%s' % request.path)
+    # usuari autenticat : busquem el seu profile (objecte Client)
+    id_client = request.user.get_profile().id
+    context = {'comandes':torna_comandes_by_client(id_client)}
     return render(request,'comandes.html',context)
 
 def producte(request):

@@ -7,9 +7,6 @@ import random
 import time
 
 
-
-
-
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)
     message = forms.CharField()
@@ -25,7 +22,7 @@ class ClientForm(forms.Form):
 
 class FesComandaForm(forms.Form):
 	productes = forms.ChoiceField()
-	quantitat=forms.IntegerField(max_value=12)
+	quantitat=forms.FloatField(max_value=12.0)
 	data_entrega = forms.ChoiceField()
 	client_id = forms.IntegerField()
 	
@@ -62,9 +59,9 @@ def torna_productes():
 # Funcio que torna la llista actual de tots els clients
 def torna_clients():
 	valor_clients=[]
-	x=Client.objects.order_by('ref_client')
+	x=Client.objects.order_by('id')
 	for c in x:
-		valor_clients.append((c.ref_client , c.nom_client))
+		valor_clients.append((c.id , c.nom_client))
 	valor_clients=tuple(valor_clients)
 	return valor_clients
 
@@ -94,15 +91,15 @@ def divendres_tancat(): #comprova si avui es diendres per saber si encara es pot
 		return True
 	else:
 		return False
-
+"""
 def torna_client_by_id(id):
 	client=Client.objects.filter(ref_client='15')
 	return client
-
-def torna_comandes_by_client():
+"""
+def torna_comandes_by_client(id_client):
 	llista_comandes=[]
 	#client = torna_client_by_id(id_client)
-	client_sel = Client.objects.filter(ref_client='15')
+	client_sel = Client.objects.filter(id=id_client)
 	comandes = Comanda.objects.filter(client=client_sel[0])
 	#comandes = Comanda.objects.filter(client=client.id)
 	for comanda in comandes:
@@ -122,7 +119,7 @@ def grabar_comanda(dic):
 	data = '10012014'
 	data_creacio_comanda= datetime.datetime.strptime(data, "%d%m%Y").date()
 	ref_com=random.randint(0,299)
-	client_inst= Client.objects.filter(ref_client=dic['client'])
+	client_inst= Client.objects.filter(id=dic['client'])
 	new_comanda = Comanda(ref_comanda=ref_com, data_entreaga_comanda=dic['data_entrega'], client=client_inst[0],data_creacio_comanda=data_creacio_comanda,data_recollida_comanda=dic['data_entrega'])
 	new_comanda.save()
 	# per fer comandes s'han d'insertar tots els camps 
