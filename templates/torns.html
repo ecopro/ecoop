@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Ecoop: Torns{% endblock %}
+
+{% block content %}
+<h1>Ecoop: Torns</h1>
+
+{% for torn in torns %}
+    {{torn.data}} : {{torn.desc}} [<a href="/admin/app1/event/{{torn.id}}">Edita</a>]
+    <blockquote>Torn caixes: {{torn.caixa}}  <br></blockquote>
+{% endfor %}
+
+{% endblock %}

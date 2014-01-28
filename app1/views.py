@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.http import *
-import datetime
+from datetime import datetime, timedelta, date, time
 from django.shortcuts import *
 from ayuda import *
 from app1.models import *
@@ -10,6 +11,31 @@ from django.contrib.sessions.middleware import SessionMiddleware
 
 # Create your views here.
 #return render_to_response('sometemplate.html')
+
+# Torns
+def torns_view(request):
+    try:
+        ultimtorn = Event.objects.filter(data__gte=datetime.now()).order_by("-data").get()
+    except:
+        ultimtorn = None
+    if not ultimtorn or ultimtorn.data<datetime.now()+timedelta(days=30):
+        # generem torns seguent mes
+        dia = date.today()
+        while dia < date.today()+timedelta(days=40):
+            if dia.weekday()==1: # dimarts!
+                hora = datetime.time(19,30)
+                data = datetime.datetime.combine( dia, hora )
+                checktorn = Event.objects.filter(data=data)
+                if not checktorn:
+                    torn = Event(
+                        data = data,
+                        desc = "Recollida de comandes"
+                    )
+                    print torn
+                    torn.save()
+            dia += timedelta(days=1)
+    torns = Event.objects.filter(data__gte=datetime.datetime.now()).order_by("data")
+    return render( request, "torns.html", {"torns":torns})
 
 def basic(request):
     return HttpResponse("Hello world")
